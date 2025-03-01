@@ -39,4 +39,4 @@ ENV/
 # Project specific
 counter.txt
 url_mapping.txt
-.db
+*.db
