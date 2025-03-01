@@ -62,15 +62,17 @@ def create_short_url():
     with open(DB_FILE, "a") as db:
         db.write(f"{short_url},{long_url}\n")
 
-    return jsonify({"short_url": short_url})
+    return jsonify({"short_url": short_url, "long_url": long_url})
 
-@app.route("/<short_url>", methods=["GET"])
-def get_long_url(short_url):
-    with open(DB_FILE, "r") as db:
-        for line in db:
-            short, long_url = line.strip().split(",", 1)
-            if short == short_url:
-                return jsonify({"long_url": long_url})
+@app.route("/get", methods=["GET"])
+def get_long_url():
+    short_url = request.args.get("short_url")
+    if short_url: 
+        with open(DB_FILE, "r") as db:
+            for line in db:
+                short, long_url = line.strip().split(",", 1)
+                if short == short_url:
+                    return jsonify({"long_url": long_url})
 
     return jsonify({"error": "Short URL not found"}), 404
 
