@@ -63,7 +63,7 @@ def create_short_url():
         conn.commit()
         short_url = encode_base62(cursor.lastrowid)  # Convert ID to Base62
 
-    return jsonify({"short_url": short_url})
+    return jsonify({"short_url": short_url, "long_url": long_url})
 
 
 @app.route("/get", methods=["GET"])
@@ -88,4 +88,4 @@ def get_long_url():
 
 if __name__ == "__main__":
     init_db()
-    app.run(debug=True)
+    app.run(debug=True, port=5003)
