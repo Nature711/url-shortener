@@ -37,6 +37,5 @@ ENV/
 .settings/
 
 # Project specific
-output/
-*.db
-*.log
+counter.txt
+url_mapping.txt
