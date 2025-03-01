@@ -14,18 +14,24 @@ BASE62_CHARS = string.digits + string.ascii_letters  # "0123456789ABCDEFGHIJKLMN
 # Load existing URL mappings into memory
 url_mapping = {}
 
-if os.path.exists(MAPPING_FILE):
+# Check if MAPPING_FILE exists, if not, create it
+if not os.path.exists(MAPPING_FILE):
+    with open(MAPPING_FILE, "w") as f:
+        # Create an empty mapping file if it doesn't exist
+        pass
+else:
     with open(MAPPING_FILE, "r") as f:
         for line in f:
             short_url, long_url = line.strip().split(",", 1)
             url_mapping[short_url] = long_url
 
-# Load counter value from file, default to 1 if not found
-if os.path.exists(COUNTER_FILE):
+# Check if COUNTER_FILE exists, if not, create it and initialize to 1
+if not os.path.exists(COUNTER_FILE):
+    with open(COUNTER_FILE, "w") as f:
+        f.write("1")  # Initialize counter to 1
+else:
     with open(COUNTER_FILE, "r") as f:
         counter = int(f.read().strip())
-else:
-    counter = 1
 
 def encode_base62(num):
     """Converts a base-10 number to base-62 string."""
@@ -76,4 +82,4 @@ def get_long_url():
     return jsonify({"long_url": url_mapping[short_url]})
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, port=5001)
