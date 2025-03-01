@@ -5,8 +5,8 @@ import os
 app = Flask(__name__)
 
 # Storage files
-COUNTER_FILE = "counter.txt"
-MAPPING_FILE = "url_mapping.txt"
+COUNTER_FILE = "v1/counter.txt"
+MAPPING_FILE = "v1/url_mapping.txt"
 
 # Base62 characters
 BASE62_CHARS = string.digits + string.ascii_letters  # "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
